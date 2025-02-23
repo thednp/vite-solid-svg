@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/thednp/vite-solid-svg/badge.svg)](https://coveralls.io/github/thednp/vite-solid-svg)
 [![ci](https://github.com/thednp/vite-solid-svg/actions/workflows/ci.yml/badge.svg)](https://github.com/thednp/vite-solid-svg/actions/workflows/ci.yml)
 [![NPM Version](https://img.shields.io/npm/v/vite-solid-svg.svg)](https://www.npmjs.com/package/vite-solid-svg)
-[![typescript version](https://img.shields.io/badge/typescript-5.6.2-brightgreen)](https://www.typescriptlang.org/)
+[![typescript version](https://img.shields.io/badge/typescript-5.7.3-brightgreen)](https://www.typescriptlang.org/)
 [![solid-js version](https://img.shields.io/badge/solid--js-1.9.5-brightgreen)](https://github.com/solidjs/solid)
 [![vitest version](https://img.shields.io/badge/vitest-3.0.6-brightgreen)](https://www.vitest.dev/)
 [![vite version](https://img.shields.io/badge/vite-6.1.1-brightgreen)](https://vite.dev)
