@@ -1,0 +1,73 @@
+{
+  "name": "vite-solid-svg",
+  "version": "0.0.1",
+  "description": "Vite plugin to transform SVGs into SolidJS components",
+  "author": "thednp",
+  "license": "MIT",
+  "homepage": "https://github.com/thednp/vite-solid-svg#readme",
+  "keywords": [
+    "vite",
+    "plugin",
+    "svg",
+    "solid-js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thednp/vite-solid-svg"
+  },
+  "bugs": {
+    "url": "https://github.com/thednp/vite-solid-svg/issues"
+  },
+  "main": "src/index.mjs",
+  "module": "src/index.mjs",
+  "types": "src/types.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.mjs",
+      "types": "./src/types.d.ts"
+    }
+  },
+  "files": [
+    "src/index.mjs",
+    "src/createElement.mjs",
+    "src/htmlToSolid.mjs",
+    "src/index.test.ts",
+    "src/global.d.ts",
+    "src/types.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite serve demo --config vite.config.ts",
+    "test": "vitest --config vitest.config.ts",
+    "test-ui": "vitest --config vitest.config.ts --ui=true",
+    "prepublishOnly": "pnpm up && pnpm lint && pnpm format && pnpm badges",
+    "badges": "npx -p dependency-version-badge update-badge solid-js typescript vitest vite",
+    "format": "deno fmt src/index.mjs src/index.test.ts src/types.d.ts",
+    "lint": "pnpm lint:ts && pnpm check:ts",
+    "lint:ts": "deno lint src/index.mjs src/index.test.ts",
+    "fix:ts": "deno lint src/index.mjs src/index.test.ts --fix",
+    "check:ts": "tsc -noEmit"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "^5.1.4",
+    "@thednp/domparser": "^0.0.3",
+    "solid-js": "^1.9.5"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.5",
+    "vite": "^5.0.0 || ^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "vite-plugin-solid": "^2.11.2",
+    "@vitest/browser": "^3.0.6",
+    "@vitest/coverage-istanbul": "^3.0.6",
+    "@vitest/ui": "^3.0.6",
+    "typescript": "5.6.2",
+    "vite": "^6.1.1",
+    "vitest": "^3.0.6"
+  },
+  "packageManager": "pnpm@8.6.12"
+}

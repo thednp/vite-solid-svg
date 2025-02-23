@@ -1,0 +1,11 @@
+.nyc_output
+.vscode
+.github
+.gitignore
+node_modules
+experiments
+coverage
+demo
+tsconfig.json
+vitest.config.mts
+index.test.ts

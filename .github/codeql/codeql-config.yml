@@ -1,0 +1,4 @@
+paths:
+  - src/createElement.mjs
+  - src/htmlToSolid.mjs
+  - src/index.mjs
