@@ -7,6 +7,7 @@ import { VitePluginSvgSolidOptions } from "./types";
 import svgSolid from "./index.mjs";
 
 import { htmlToSolid } from "./htmlToSolid.mjs";
+import { createElement } from "./createElement.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -94,6 +95,15 @@ describe("vite-solid-svg", () => {
       expect(er).toBeInstanceOf(TypeError);
       expect((er as TypeError).message).toEqual("input must be a string");
     }
+  });
+
+  it("cover createElement", () => {
+    const mk = createElement("div", {},
+      // @ts-expect-error - this case is only for Ryan's playground
+      createElement("span"),
+      createElement("span", {}, "This is a span text"),
+    );
+    console.log(mk)
   });
 
   it("should accept plugin options", () => {

@@ -1,6 +1,6 @@
 {
   "name": "vite-solid-svg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vite plugin to transform SVGs into SolidJS components",
   "author": "thednp",
   "license": "MIT",
@@ -32,7 +32,6 @@
     "src/index.mjs",
     "src/createElement.mjs",
     "src/htmlToSolid.mjs",
-    "src/index.test.ts",
     "src/global.d.ts",
     "src/types.d.ts",
     "README.md",

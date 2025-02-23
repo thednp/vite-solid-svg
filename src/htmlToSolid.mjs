@@ -78,13 +78,12 @@ const DomToSolid = (input, depth = 0) => {
  * 
  * @type {htmlToSolid}
  */
-export const htmlToSolid = (input, options = {}) => {
-  const { replacement } = options;
+export const htmlToSolid = (input) => {
   const doc = htmlToDOM(input);
   if (!doc?.children.length) return { code: '', attributes: {} };
   const { tagName, nodeName, attributes, children } = doc.children[0];
   // @ts-expect-error
-  const code = DomToSolid({ tagName, nodeName, attributes: replacement || attributes, children });
+  const code = DomToSolid({ tagName, nodeName, attributes, children });
 
   return { code, attributes };
 }
