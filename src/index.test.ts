@@ -98,12 +98,14 @@ describe("vite-solid-svg", () => {
   });
 
   it("cover createElement", () => {
-    const mk = createElement("div", {},
+    const mk = createElement(
+      "div",
+      {},
       // @ts-expect-error - this case is only for Ryan's playground
       createElement("span"),
       createElement("span", {}, "This is a span text"),
     );
-    console.log(mk)
+    console.log(mk);
   });
 
   it("should accept plugin options", () => {
