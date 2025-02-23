@@ -10,7 +10,7 @@
 
 
 A Vite plugin that transforms SVG files into SolidJS components using the [DOMParser](https://github.com/thednp/domparser).
-Why this one? Because it's the fastest.
+Why this one? It's 3x faster than any SVGO powered plugin. Check the [React](https://github.com/thednp/vite-react-svg) version for more info.
 
 
 ## Features
