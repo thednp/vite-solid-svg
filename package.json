@@ -43,7 +43,7 @@
     "test-ui": "vitest --config vitest.config.ts --ui=true",
     "prepublishOnly": "pnpm up && pnpm lint && pnpm format && pnpm badges",
     "badges": "npx -p dependency-version-badge update-badge solid-js typescript vitest vite",
-    "format": "deno fmt src/index.mjs src/index.test.ts src/types.d.ts",
+    "format": "deno fmt src/*.mjs src/*.ts demo/*.tsx demo/*.tsx",
     "lint": "pnpm lint:ts && pnpm check:ts",
     "lint:ts": "deno lint src/index.mjs src/index.test.ts",
     "fix:ts": "deno lint src/index.mjs src/index.test.ts --fix",

@@ -17,7 +17,6 @@ Why this one? It's 3x faster than any SVGO powered plugin. Check the [React](htt
 * 🚀 Fast transformation using [DOMParser](https://github.com/thednp/domparser)
 * 🎯 TypeScript support
 * 🔧 Configurable transformation options
-* 💪 Full props support (className, style, events, etc.)
 * 🔥 Hot Module Replacement (HMR) support
 * ⚡ Vitest powered tests
 
@@ -109,14 +108,6 @@ const app = () => {
  * All properties present in the markup of your SVG files will be used as default values;
  * The `viewBox` and `xmlns` properties are somewhat required in order for the SVG to be rendered properly;
  * The plugin will also resolve SVG files from the `/public` folder or any valid `viteConfig.publicDir` option.
-
-
-## Contributing
-* Fork it!
-* Create your feature branch: `git checkout -b my-new-feature`
-* Commit your changes: `git commit -am 'Add some feature'`
-* Push to the branch: `git push origin 'my-new-feature'`
-* Submit a pull request
 
 
 ## Acknowledgments
