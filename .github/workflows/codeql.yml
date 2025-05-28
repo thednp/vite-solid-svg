@@ -16,14 +16,16 @@ on:
     branches: [master]
     paths:
       - src/index.mjs
-      - src/htmlToVanCode.mjs
+      - src/createElement.mjs
+      - src/htmlToSolid.mjs
       - .github/workflows/codeql.yml
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [master]
     paths:
       - src/index.mjs
-      - src/htmlToVanCode.mjs
+      - src/createElement.mjs
+      - src/htmlToSolid.mjs
       - .github/workflows/codeql.yml
 jobs:
   analyze:

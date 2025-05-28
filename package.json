@@ -1,6 +1,6 @@
 {
   "name": "vite-solid-svg",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Vite plugin to transform SVGs into SolidJS components",
   "author": "thednp",
   "license": "MIT",
@@ -41,7 +41,7 @@
     "dev": "vite serve demo --config vite.config.ts",
     "test": "vitest --config vitest.config.ts",
     "test-ui": "vitest --config vitest.config.ts --ui=true",
-    "prepublishOnly": "pnpm up && pnpm lint && pnpm format && pnpm badges",
+    "prepublishOnly": "pnpm update --latest && pnpm lint && pnpm format && pnpm badges",
     "badges": "npx -p dependency-version-badge update-badge solid-js typescript vitest vite",
     "format": "deno fmt src/*.mjs src/*.ts demo/*.tsx demo/*.tsx",
     "lint": "pnpm lint:ts && pnpm check:ts",
@@ -51,22 +51,22 @@
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.1.4",
-    "@thednp/domparser": "^0.0.3",
-    "solid-js": "^1.9.5"
+    "@thednp/domparser": "^0.1.2",
+    "solid-js": "^1.9.7"
   },
   "peerDependencies": {
     "solid-js": "^1.9.5",
     "vite": "^5.0.0 || ^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.13.5",
-    "@vitest/browser": "^3.0.6",
-    "@vitest/coverage-istanbul": "^3.0.6",
-    "@vitest/ui": "^3.0.6",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.1",
-    "vite-plugin-solid": "^2.11.2",
-    "vitest": "^3.0.6"
+    "@types/node": "^22.15.23",
+    "@vitest/browser": "^3.1.4",
+    "@vitest/coverage-istanbul": "^3.1.4",
+    "@vitest/ui": "^3.1.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-solid": "^2.11.6",
+    "vitest": "^3.1.4"
   },
   "packageManager": "pnpm@8.6.12"
 }

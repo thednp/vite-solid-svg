@@ -5,22 +5,26 @@ on:
     branches:
       - master
     paths:
-      - index.test.ts
       - index.mjs
+      - createElement.mjs
+      - htmlToSolid.mjs
+      - index.test.ts
       - package.json
       - .github/workflows/ci.yml
   pull_request:
     branches:
       - master
     paths:
-      - index.test.ts
+      - createElement.mjs
+      - htmlToSolid.mjs
       - index.mjs
+      - index.test.ts
       - package.json
       - .github/workflows/ci.yml
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: Test on Node
 
     steps:
@@ -40,7 +44,7 @@ jobs:
       - name: Node Setup
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install dependencies
