@@ -67,10 +67,10 @@ const DomToSolid = (input, depth = 0) => {
           : ("\n" + "  ".repeat(depth + 1))) + DomToSolid(child, depth + 1)
       )
       .join(",");
-    output += `${childrenHTML}`;
+    output += childrenHTML;
   }
   if (nodeValue) {
-    output += `"${nodeValue}"`;
+    output += `\`${nodeValue}\``;
   }
   // Adjust newline for closing bracket
   output += isText
