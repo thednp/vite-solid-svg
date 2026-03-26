@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import { transformWithEsbuild } from "vite";
+import { transformWithOxc } from "vite";
 import { createFilter } from "@rollup/pluginutils";
 import { htmlToSolid } from "./htmlToSolid.mjs";
 
@@ -81,8 +81,8 @@ export default function vitePluginSvgSolid(options = {}) {
         const componentCode = transformSvgToSolid(svgCode);
 
         // Transform the component code using esbuild
-        const result = await transformWithEsbuild(componentCode, id, {
-          loader: "js",
+        const result = await transformWithOxc(componentCode, id, {
+          lang: "js",
           ...esbuildOptions,
         });
 
