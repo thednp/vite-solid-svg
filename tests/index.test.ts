@@ -1,15 +1,36 @@
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
-import { describe, expect, it } from "vitest";
-import { VitePluginSvgSolidOptions } from "./types";
+import { describe, expect, it, vi } from "vitest";
+import type { VitePluginSvgSolidOptions, Load } from "../src/types";
+import { mockPlugin7Context, mockPlugin8Context } from "./fixtures/mock.ts";
 
 // import plugin
-import svgSolid from "./index.mjs";
+import svgSolid from "../src/index.mjs";
 
-import { htmlToSolid } from "./htmlToSolid.mjs";
-import { createElement } from "./createElement.mjs";
+import { htmlToSolid } from "../src/htmlToSolid.mjs";
+import { createElement } from "../src/createElement.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+vi.mock('vite', async () => {
+  const actual = await vi.importActual('vite');
+  return {
+    ...actual,
+    // Mock any Vite exports if necessary
+    transformWithOxc: vi.fn().mockImplementation((code) =>
+      Promise.resolve({
+        code,  // return the same code that was passed
+        map: `[{"file": "./file.ts"}]`
+      })
+    ),
+    transformWithEsbuild: vi.fn().mockImplementation((code) =>
+      Promise.resolve({
+        code,  // return the same code that was passed
+        map: [{ "file": "./file.ts" }]
+      })
+    ),
+  };
+});
 
 describe("vite-solid-svg", () => {
   it("should be a function", () => {
@@ -23,10 +44,12 @@ describe("vite-solid-svg", () => {
     expect(typeof plugin.load).toBe("function");
   });
 
-  it("should transform svg files with ?solid query", async () => {
+  it("should transform svg files with ?solid query with vite 8", async () => {
     const plugin = svgSolid();
-    const svgPath = resolve(__dirname, "solid.svg");
-    const result = await plugin.load?.(svgPath + "?solid");
+    // @ts-expect-error - this is testing
+    plugin?.buildStart?.call(mockPlugin8Context);
+    const svgPath = resolve(__dirname, "./fixtures/solid.svg");
+    const result = await (plugin.load as Load)(svgPath + "?solid");
 
     if (!result) return;
 
@@ -44,12 +67,17 @@ describe("vite-solid-svg", () => {
 
     // Check if SVG content is included
     expect(result.code).toContain("viewBox");
+
+    // Check map is generated
+    expect(result.map).not.toBe(null);
   });
 
-  it("should not have any default props", async () => {
+  it("should transform svg files with ?solid query with vite 7", async () => {
     const plugin = svgSolid();
-    const svgPath = resolve(__dirname, "solid-no-props.svg");
-    const result = await plugin.load?.(svgPath + "?solid");
+    // @ts-expect-error - this is testing
+    plugin?.buildStart?.call(mockPlugin7Context);
+    const svgPath = resolve(__dirname, "./fixtures/solid.svg");
+    const result = await (plugin.load as Load)(svgPath + "?solid");
 
     if (!result) return;
 
@@ -58,17 +86,29 @@ describe("vite-solid-svg", () => {
 
     // Check if the transformed code includes Solid imports
     expect(result.code).toContain("import { createElement } from");
+
+    // Check if the transformed code creates a component
+    expect(result.code).toContain("export default function SVGComponent");
+
+    // Check if the component handles props
+    expect(result.code).toContain("props = {}");
+
+    // Check if SVG content is included
+    expect(result.code).toContain("viewBox");
+
+    // Check map is generated
+    expect(result.map).not.toBe(null);
   });
 
   it("should not transform non-svg files", async () => {
     const plugin = svgSolid();
-    const result = await plugin.load?.("test.js?solid");
+    const result = await (plugin.load as Load)("test.js?solid");
     expect(result).toBeNull();
   });
 
   it("should not transform svg files without ?solid query", async () => {
     const plugin = svgSolid();
-    const result = await plugin.load?.("test.svg");
+    const result = await (plugin.load as Load)("test.svg");
     expect(result).toBeNull();
   });
 

@@ -1,7 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import { transformWithOxc } from "vite";
 import { createFilter } from "@rollup/pluginutils";
 import { htmlToSolid } from "./htmlToSolid.mjs";
 
@@ -14,6 +13,8 @@ const cwd = process.cwd();
 
 /** @typedef {typeof import("./types").VitePluginSolidSVG} VitePluginSolidSVG */
 /** @typedef {import("./types").VitePluginSvgSolidOptions} VitePluginSvgSolidOptions */
+/** @typedef {import("vite").BuildAppHook} BuildAppHook */
+/** @typedef {ThisParameterType<BuildAppHook>} PluginContext */
 
 /**
  * Compiles SVGs to Solid component code
@@ -39,7 +40,6 @@ export default function SVGComponent(props = {}) {
 /** @type {VitePluginSolidSVG} */
 export default function vitePluginSvgSolid(options = {}) {
   const {
-    esbuildOptions,
     include = ["**/*.svg?solid"],
     exclude,
   } = options;
@@ -47,10 +47,15 @@ export default function vitePluginSvgSolid(options = {}) {
   const postfixRE = /[?#].*$/s;
   /** @type {VitePluginSvgSolidOptions} */
   let config;
+  /** @type {PluginContext} */
+  let context;
 
   return {
     name: "solid-svg",
     enforce: "pre",
+    buildStart() {
+      context = this;
+    },
     // istanbul ignore next - impossible to test outside of vite runtime
     configResolved(cfg) {
       config = cfg;
@@ -80,15 +85,31 @@ export default function vitePluginSvgSolid(options = {}) {
         // Transform SVG to Solid component
         const componentCode = transformSvgToSolid(svgCode);
 
-        // Transform the component code using esbuild
-        const result = await transformWithOxc(componentCode, id, {
-          lang: "js",
-          ...esbuildOptions,
+        // Transform component to ESM
+        const vite = await import("vite");
+        const viteVersion = context.meta.viteVersion;
+        const isVite8 = viteVersion?.startsWith("8");
+        const transformer = isVite8
+          ? "transformWithOxc"
+          : "transformWithEsbuild";
+        const langProp = isVite8 ? "lang" : "loader";
+        const mapProp = isVite8 ? "source_map" : "sourcemap";
+
+        // Transform the component code using esbuild/oxc
+        const result = await vite[transformer](componentCode, id, {
+          [langProp]: "js",
+          [mapProp]: true,
         });
 
         return {
           code: result.code,
-          map: null,
+          map: result.map
+            ? (
+              typeof result.map === "string"
+                ? JSON.parse(result.map)
+                : result.map
+            )
+            : /* istanbul ignore next @preserve */ null,
         };
       }
       return null;

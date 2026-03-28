@@ -1,4 +1,4 @@
-import SolidIcon from "../src/solid.svg?solid";
+import SolidIcon from "../tests/fixtures/solid.svg?solid";
 
 const App = () => {
   return (

@@ -9,28 +9,22 @@ import type {
 } from "@thednp/domparser";
 
 import type { FilterPattern } from "@rollup/pluginutils";
-import { type ResolvedConfig, transformWithEsbuild } from "vite";
+import type { Plugin, ResolvedConfig } from "vite";
 
 export type VitePluginSvgSolidOptions = Partial<ResolvedConfig> & {
-  esbuildOptions?: Parameters<typeof transformWithEsbuild>[2];
   exclude?: FilterPattern;
   include?: FilterPattern;
 };
 
 export declare const VitePluginSolidSVG: (
   config?: VitePluginSvgSolidOptions,
-) => {
-  name: string;
-  enforce: "pre" | "post" | undefined;
-  configResolved: (cfg: VitePluginSvgSolidOptions) => void;
-  config(): {
-    resolve: {
-      alias: Record<string, string>;
-    };
-  };
-  load: (id: string) => Promise<{ code: string; map: null } | null>;
-};
+) => Plugin<VitePluginSvgSolidOptions>;
 export default VitePluginSolidSVG;
+
+export type Load = (
+  id: string,
+  ops?: { ssr: boolean },
+) => Promise<({ code: string; map: null } | null)>;
 
 export type SolidCode = {
   code: string;
