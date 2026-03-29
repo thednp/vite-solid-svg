@@ -1,7 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { VitePluginSvgSolidOptions, Load } from "../src/types";
+import type { VitePluginSvgSolidOptions } from "../src/types";
 import { mockPlugin7Context, mockPlugin8Context } from "./fixtures/mock.ts";
 
 // import plugin
@@ -11,6 +11,11 @@ import { htmlToSolid } from "../src/htmlToSolid.mjs";
 import { createElement } from "../src/createElement.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+type Load = (
+  id: string,
+  ops?: { ssr: boolean },
+) => Promise<({ code: string; map: null } | null)>;
 
 vi.mock('vite', async () => {
   const actual = await vi.importActual('vite');
@@ -51,25 +56,23 @@ describe("vite-solid-svg", () => {
     const svgPath = resolve(__dirname, "./fixtures/solid.svg");
     const result = await (plugin.load as Load)(svgPath + "?solid");
 
-    if (!result) return;
-
     expect(result).toBeDefined();
-    expect(typeof result.code).toBe("string");
+    expect(typeof result?.code).toBe("string");
 
     // Check if the transformed code includes Solid imports
-    expect(result.code).toContain("import { createElement } from");
+    expect(result?.code).toContain("import { createElement } from");
 
     // Check if the transformed code creates a component
-    expect(result.code).toContain("export default function SVGComponent");
+    expect(result?.code).toContain("export default function SVGComponent");
 
     // Check if the component handles props
-    expect(result.code).toContain("props = {}");
+    expect(result?.code).toContain("props = {}");
 
     // Check if SVG content is included
-    expect(result.code).toContain("viewBox");
+    expect(result?.code).toContain("viewBox");
 
     // Check map is generated
-    expect(result.map).not.toBe(null);
+    expect(result?.map).not.toBe(null);
   });
 
   it("should transform svg files with ?solid query with vite 7", async () => {
@@ -79,25 +82,23 @@ describe("vite-solid-svg", () => {
     const svgPath = resolve(__dirname, "./fixtures/solid.svg");
     const result = await (plugin.load as Load)(svgPath + "?solid");
 
-    if (!result) return;
-
     expect(result).toBeDefined();
-    expect(typeof result.code).toBe("string");
+    expect(typeof result?.code).toBe("string");
 
     // Check if the transformed code includes Solid imports
-    expect(result.code).toContain("import { createElement } from");
+    expect(result?.code).toContain("import { createElement } from");
 
     // Check if the transformed code creates a component
-    expect(result.code).toContain("export default function SVGComponent");
+    expect(result?.code).toContain("export default function SVGComponent");
 
     // Check if the component handles props
-    expect(result.code).toContain("props = {}");
+    expect(result?.code).toContain("props = {}");
 
     // Check if SVG content is included
-    expect(result.code).toContain("viewBox");
+    expect(result?.code).toContain("viewBox");
 
     // Check map is generated
-    expect(result.map).not.toBe(null);
+    expect(result?.map).not.toBe(null);
   });
 
   it("should not transform non-svg files", async () => {

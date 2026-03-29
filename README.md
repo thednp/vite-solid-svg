@@ -8,7 +8,6 @@
 A Vite plugin that transforms SVG files into SolidJS components using the [DOMParser](https://github.com/thednp/domparser).
 Why this one? It's 3x faster than any SVGO powered plugin. Check the [React](https://github.com/thednp/vite-react-svg) version for more info.
 
-
 ## Features
 * 🚀 Fast transformation using [DOMParser](https://github.com/thednp/domparser)
 * 🎯 TypeScript support
@@ -62,11 +61,14 @@ While the default options work just fine, for your convenience the plugin allows
 
 ```ts
 interface VitePluginSolidSvgOptions {
+  oxcOptions?: OxcOptions,
+  esbuildOptions?: EsbuildTransformOptions,
   include?: string | RegExp | (string | RegExp)[]
   exclude?: string | RegExp | (string | RegExp)[]
 }
 ```
-
+* `oxcOptions`: additional oxc transformation options for `rolldown`;
+* `esbuildOptions`: **deprecated** [EsbuildTransformOptions](https://esbuild.github.io/api/#transform) esbuild will make sure the plugin will work seamless within the Vite ecosystem and provides some additional options;
 * `include`: filter option to **include** one or more RegExp for file IDs; the default value is `["**/*.svg?solid"]`;
 * `exclude`: filter option to **exclude** one or more RegExp for file IDs.
 

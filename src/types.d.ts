@@ -11,7 +11,10 @@ import type {
 import type { FilterPattern } from "@rollup/pluginutils";
 import type { Plugin, ResolvedConfig } from "vite";
 
-export type VitePluginSvgSolidOptions = Partial<ResolvedConfig> & {
+export type VitePluginSvgSolidOptions = {
+  oxcOptions?: OxcOptions;
+  /** @deprecated */
+  esbuildOptions?: EsbuildTransformOptions;
   exclude?: FilterPattern;
   include?: FilterPattern;
 };
@@ -20,11 +23,6 @@ export declare const VitePluginSolidSVG: (
   config?: VitePluginSvgSolidOptions,
 ) => Plugin<VitePluginSvgSolidOptions>;
 export default VitePluginSolidSVG;
-
-export type Load = (
-  id: string,
-  ops?: { ssr: boolean },
-) => Promise<({ code: string; map: null } | null)>;
 
 export type SolidCode = {
   code: string;
