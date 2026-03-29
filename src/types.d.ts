@@ -9,7 +9,7 @@ import type {
 } from "@thednp/domparser";
 
 import type { FilterPattern } from "@rollup/pluginutils";
-import type { Plugin, ResolvedConfig } from "vite";
+import type { Plugin, ResolvedConfig, OxcOptions } from "vite";
 
 export type VitePluginSvgSolidOptions = {
   oxcOptions?: OxcOptions;
