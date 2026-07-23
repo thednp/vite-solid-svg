@@ -62,6 +62,9 @@ describe("vite-solid-svg", () => {
     // Check if the transformed code includes Solid imports
     expect(result?.code).toContain("import { createElement } from");
 
+    // Check if the transformed code includes Solid imports
+    expect(result?.code).toContain("import { mergeProps } from");
+
     // Check if the transformed code creates a component
     expect(result?.code).toContain("export default function SVGComponent");
 
@@ -81,15 +84,18 @@ describe("vite-solid-svg", () => {
     plugin?.buildStart?.call(mockPlugin7Context);
     const svgPath = resolve(__dirname, "./fixtures/solid.svg");
     const result = await (plugin.load as Load)(svgPath + "?solid");
-
     expect(result).toBeDefined();
     expect(typeof result?.code).toBe("string");
 
     // Check if the transformed code includes Solid imports
     expect(result?.code).toContain("import { createElement } from");
 
+    // Check if the transformed code includes Solid imports
+    expect(result?.code).toContain("import { mergeProps } from");
+
     // Check if the transformed code creates a component
     expect(result?.code).toContain("export default function SVGComponent");
+
 
     // Check if the component handles props
     expect(result?.code).toContain("props = {}");

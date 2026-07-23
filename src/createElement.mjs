@@ -1,5 +1,7 @@
 import { Dynamic, mergeProps } from "solid-js/web";
 
+export { mergeProps };
+
 /** @typedef {import("solid-js").JSX} JSX */
 /** @typedef {import("solid-js").JSXElement} JSXElement */
 /** @typedef {import("solid-js").ValidComponent} ValidComponent */
@@ -19,5 +21,5 @@ export function createElement(tagName, props, ...children) {
       : {},
   );
 
-  return Dynamic({ component: tagName, ...finalProps });
+  return Dynamic(mergeProps({ component: tagName }, finalProps));
 }

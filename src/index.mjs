@@ -14,6 +14,7 @@ const cwd = process.cwd();
 /** @typedef {typeof import("./types").VitePluginSolidSVG} VitePluginSolidSVG */
 /** @typedef {import("./types").VitePluginSvgSolidOptions} VitePluginSvgSolidOptions */
 /** @typedef {import("vite").BuildAppHook} BuildAppHook */
+/** @typedef {import("vite").ResolvedConfig} ResolvedConfig */
 /** @typedef {ThisParameterType<BuildAppHook>} PluginContext */
 
 /**
@@ -27,7 +28,9 @@ function transformSvgToSolid(svgCode) {
 
   // Wrap the converted code in a component
   const componentCode = `
-import { createElement } from "@createElement";
+ import { createElement } from "@createElement";
+ import { mergeProps } from "solid-js/web";
+
 
 export default function SVGComponent(props = {}) {
 	return ${solidCode.code};
@@ -47,7 +50,7 @@ export default function vitePluginSvgSolid(options = {}) {
   } = options;
   const filter = createFilter(include, exclude);
   const postfixRE = /[?#].*$/s;
-  /** @type {VitePluginSvgSolidOptions} */
+  /** @type {ResolvedConfig} */
   let config;
   let isOxc = true;
 

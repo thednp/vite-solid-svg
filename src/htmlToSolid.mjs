@@ -46,15 +46,15 @@ const DomToSolid = (input, depth = 0) => {
   const spaces = "  ".repeat(depth); // Calculate spaces based on depth
   let output = isText ? "" : (spaces + `createElement("${tagName}", `);
 
-  const attributesHTML =
-    (attributeEntries.length
-      ? attributeEntries.map(([key, value]) =>
-        `${quoteText(key)}: ${solidValue(value)}`
-      ).join(", ")
-      : "")
-      // don't add props to children
-      .concat(depth === 0 ? ", ...props" : "");
-  output += !isText ? `{${attributesHTML}}` : "";
+  const attrs = attributeEntries.length
+    ? attributeEntries.map(([key, value]) =>
+      `${quoteText(key)}: ${solidValue(value)}`
+    ).join(", ")
+    : "";
+  output += !isText
+    ? depth === 0 ? `mergeProps({${attrs}}, props)` : `{${attrs}}`
+    : "";
+
   output += !isText && children?.length ? "," : "";
 
   if (children?.length) {

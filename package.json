@@ -1,6 +1,6 @@
 {
   "name": "vite-solid-svg",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Vite plugin to transform SVGs into SolidJS components",
   "author": "thednp",
   "license": "MIT",
@@ -49,23 +49,23 @@
     "check:ts": "tsc -noEmit"
   },
   "dependencies": {
-    "@rollup/pluginutils": "^5.3.0",
+    "@rollup/pluginutils": "^5.4.0",
     "@thednp/domparser": "^0.1.9",
-    "solid-js": "^1.9.12"
+    "solid-js": "^1.9.14"
   },
   "peerDependencies": {
     "solid-js": "^1.9.5",
-    "vite": "^5.0.0 || ^6.0.0"
+    "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0",
-    "@vitest/browser": "^4.1.2",
-    "@vitest/coverage-istanbul": "^4.1.2",
-    "@vitest/ui": "^4.1.2",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "vite-plugin-solid": "^2.11.11",
-    "vitest": "^4.1.2"
+    "@types/node": "^26.1.1",
+    "@vitest/browser": "^4.1.10",
+    "@vitest/coverage-istanbul": "^4.1.10",
+    "@vitest/ui": "^4.1.10",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vite-plugin-solid": "^2.11.13",
+    "vitest": "^4.1.10"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@11.15.1"
 }
